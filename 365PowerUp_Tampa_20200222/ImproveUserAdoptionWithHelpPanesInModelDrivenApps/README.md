@@ -4,7 +4,7 @@
 be corrected in the production version of this feature.
 
 # How to use the solution
-!!!!!!!!!!!!!!!!!!!! This solution is not production ready. Do not use it on a production environment. !!!!!!!!!!!!!!!!!!!!
+**This solution is not production ready. Do not use it on a production environment.**
 - Import the solution on the environment you want to try it
 - To be able to use the help panes after the import of the solution, do not forget to to enable this Help mode in the settings.
 
