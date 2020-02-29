@@ -11,7 +11,7 @@ For those who attended at this session at the 365 Power Up event in Tampa, I apo
   - A Microsoft Forms Pro survey like the one you will see in the "04 - New employee information gathering.mp4" video in the "Demonstration" folder
   
 - The "OnboardingDemo_1_0.zip" is the core solution for this demonstration
-- "" and "" contains flows that can be executed manually from a Worker Onboarding record in the model-driven app in the solution
+- "Sendwelcomecardtonewemployeeonfirstday_20200229155252.zip" and "GetOnboardingFeedbacks_20200229155424.zip" contains flows that can be executed manually from a Worker Onboarding record in the model-driven app in the solution
 - "OnboardingWithThePowerPlatform_Report.pbix" is the Power BI report you can see in the "08 - Power BI report on Onboarding.mp4" video in the "Demonstration" folder
 
 # Useful links:
