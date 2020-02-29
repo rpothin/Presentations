@@ -3,7 +3,7 @@
 - For now, you can not edit help panes in out of the box applications (ex: Sales Hub). I have eard that this is a bug, and that it should
 be corrected in the production version of this feature.
 
-# How to use the solutions
+# How to use the solution components
 **Warning: This solution is not production ready, so do not use it on a production environment.**
 - HelpPanesDemo_1_0.zip is the solution we had at the beginning of the presentation with a model driven app and an help pane on the main form of the Opportunity entity
 - HelpPanesDemo_1_1.zip is the solution we deployed on our target environment, with an additional help pane on the main form of the Lead entity
