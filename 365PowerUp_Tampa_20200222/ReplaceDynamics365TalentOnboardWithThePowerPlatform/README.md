@@ -1,5 +1,8 @@
+# Demonstration video
+You can watch a video with the different demonstrations I have shown during my session at the event following this link: https://youtu.be/5NzWXyQnMfM
+
 # Apologies
-For those who attended at this session at the 365 Power Up event in Tampa, I apologize for the demonstration that did not work as expected. You will be able to find videos here that will show you in action the solution I have build for the onboarding of new employees.
+For those who attended this session at the 365 Power Up event in Tampa, I apologize for the demonstration that did not work as expected. You will be able to find videos here that will show you in action the solution I have build for the onboarding of new employees.
 
 # How to use the solution components
 **Warning: This solution is not production ready, so do not use it on a production environment.**
