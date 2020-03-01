@@ -1,5 +1,5 @@
 # Demonstration video
-You can watch a video with the different demonstrations I have shown during my session at the event following this link: https://www.youtube.com/watch?v=HSXHwQzDY4o
+You can watch a video with the different demonstrations I have shown during my session at the event following this link: https://youtu.be/HSXHwQzDY4o
 
 # Complementary notes
 - The Help Panes are still in preview version, and the production version should go live in April 2020.
