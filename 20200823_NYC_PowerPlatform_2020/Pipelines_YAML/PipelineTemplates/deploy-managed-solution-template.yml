@@ -1,0 +1,26 @@
+#NYCPowerPlatform2020
+# Pipeline template for the steps to deploy a managed solution to a specified environment
+
+parameters:
+- name: targetedEnvironment # QA or Production
+  type: string
+  default: ''
+
+steps:
+# Get artifacts built in the previous stage with the managed solution
+- download: current
+  artifact: dropManagedSolution
+
+# Install the Power Platform Build Tools
+- task: PowerPlatformToolInstaller@0
+  inputs:
+    DefaultVersion: true
+
+# Import the managed solution to the targeted environment
+- task: PowerPlatformImportSolution@0
+  inputs:
+    authenticationType: 'PowerPlatformSPN'
+    PowerPlatformSPN: '${{ parameters.targetedEnvironment }}'
+    SolutionInputFile: '$(Pipeline.Workspace)/dropManagedSolution/$(SolutionName)_managed.zip'
+    AsyncOperation: true
+    MaxAsyncWaitTime: '240'

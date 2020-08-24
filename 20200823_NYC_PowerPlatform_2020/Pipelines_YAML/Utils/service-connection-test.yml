@@ -1,0 +1,17 @@
+# Pipeline used to test a service connection provided as input parameter
+
+trigger: none
+
+pool:
+  name: Azure Pipelines
+  vmImage: 'windows-2019'
+
+steps:
+- task: microsoft-IsvExpTools.PowerPlatform-BuildTools.tool-installer.PowerPlatformToolInstaller@0
+  displayName: 'Power Platform Tool Installer '
+
+- task: microsoft-IsvExpTools.PowerPlatform-BuildTools.whoami.PowerPlatformWhoAmi@0
+  displayName: 'Power Platform WhoAmI '
+  inputs:
+    authenticationType: PowerPlatformSPN
+    PowerPlatformSPN: '$(ServiceConnectionName)'

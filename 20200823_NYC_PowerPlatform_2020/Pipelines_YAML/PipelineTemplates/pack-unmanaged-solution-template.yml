@@ -1,0 +1,19 @@
+#NYCPowerPlatform2020
+# Pipeline template for the steps to pack an unmanaged solution
+
+steps:
+# Install the Power Platform Build Tools
+- task: PowerPlatformToolInstaller@0
+  inputs:
+    DefaultVersion: true
+
+# Build an unmanaged solution from the files in the considered branch
+- task: PowerPlatformPackSolution@0
+  inputs:
+    SolutionSourceFolder: '$(Build.SourcesDirectory)\UnmanagedSolutionsUnpacked\$(SolutionName)'
+    SolutionOutputFile: '$(Build.ArtifactStagingDirectory)\$(SolutionName).zip'
+
+# Publish the unmanaged solution we got in a previous task as an artifcat so we can use it in another stage
+- publish: '$(Build.ArtifactStagingDirectory)\$(SolutionName).zip'
+  displayName: 'Publish unmanaged solution for later use in the pipeline'
+  artifact: dropUnmanagedSolution

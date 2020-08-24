@@ -1,0 +1,35 @@
+#NYCPowerPlatform2020
+# Pipeline template for the steps to generate a manage solution from an unmanaged solution
+
+steps:
+# Get artifacts built in the previous stage with the unmanaged solution
+- download: current
+  artifact: dropUnmanagedSolution
+    
+# Install the Power Platform Build Tools
+- task: PowerPlatformToolInstaller@0
+  inputs:
+    DefaultVersion: true
+
+# Import the unmanaged solution to the build environment
+- task: PowerPlatformImportSolution@0
+  inputs:
+    authenticationType: 'PowerPlatformSPN'
+    PowerPlatformSPN: 'Build'
+    SolutionInputFile: '$(Pipeline.Workspace)\dropUnmanagedSolution\$(SolutionName).zip'
+    AsyncOperation: true
+    MaxAsyncWaitTime: '240'
+
+# Export the considered solution as managed
+- task: PowerPlatformExportSolution@0
+  inputs:
+    authenticationType: 'PowerPlatformSPN'
+    PowerPlatformSPN: 'Build'
+    SolutionName: '$(SolutionName)'
+    SolutionOutputFile: '$(Build.ArtifactStagingDirectory)\$(SolutionName)_managed.zip'
+    Managed: true
+
+# Publish the managed solution we got in a previous task as an artifcat so we can use it in another stage
+- publish: '$(Build.ArtifactStagingDirectory)\$(SolutionName)_managed.zip'
+  displayName: 'Publish managed solution for later use in the pipeline'
+  artifact: dropManagedSolution

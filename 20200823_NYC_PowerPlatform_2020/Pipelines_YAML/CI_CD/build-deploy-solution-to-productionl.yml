@@ -1,0 +1,64 @@
+#NYCPowerPlatform2020
+# Build a solution from release branch to deploy it to production
+
+# Input variables:
+# - SolutionName: Name of the solution targeted
+
+trigger: none # Pipeline triggered manually
+
+stages:
+# Stage for the build of an unmanaged solution from the files in the considered release branch
+- stage: 'PackSolution'
+  displayName: 'Pack Solution'
+  jobs:
+    - job: 'PackSolution'
+      displayName: 'PackSolution job'
+      pool:
+        name: Azure Pipelines
+        vmImage: 'windows-2019'
+
+      steps:
+      # Call to the pipeline template with the steps to pack an unmanaged solution
+      - template: ../PipelineTemplates/pack-unmanaged-solution-template.yml
+
+# Stage for the build of a managed version of the considered solution on the build environment
+# This stage runs only if 'PackSolution' stage is succeeded
+- stage: 'BuildManagedSolution'
+  displayName: 'Generate a managed solution based on the files in the release branch'
+  dependsOn: PackSolution
+  condition: succeeded()
+  jobs:
+    - deployment: 'BuildManagedSolution'
+      pool:
+        name: Azure Pipelines
+        vmImage: 'windows-2019'
+      environment: 'Build'
+
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            # Call to the pipeline template with the steps to generate a manage solution from an unmanaged solution
+            - template: ../PipelineTemplates/generate-managed-solution-template.yml
+
+# Stage for the deployment of the managed version of the considered solution to Production environment
+# This stage runs only if 'BuildManagedSolution' stage is succeeded
+- stage: 'ImportSolutionToProduction'
+  displayName: 'Import managed solution to Production'
+  dependsOn: BuildManagedSolution
+  condition: succeeded()
+  jobs:
+    - deployment: 'ImportSolutionToProduction'
+      pool:
+        name: Azure Pipelines
+        vmImage: 'windows-2019'
+      environment: 'Production'
+
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+              # Call to the pipeline template with the steps to deploy a managed solution to a specified environment
+              - template: ../PipelineTemplates/deploy-managed-solution-template.yml
+                parameters:
+                  targetedEnvironment: 'Production'
