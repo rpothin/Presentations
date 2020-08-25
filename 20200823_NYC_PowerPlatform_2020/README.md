@@ -1,6 +1,8 @@
 # Video of the session at the event
 You can watch the recording of the session at the event following this link: [**Recording of the session**](https://www.youtube.com/watch?v=Uwd_KUxAxKY&list=PLdbM_SIQbJQhyHstSbcEaR93IwFY0phSu&index=8&t=0s)
 
+*Note: The error I got during the session (at 15:40) is due to the fact that the pipeline tried to make a commit at the same time I was making the commit for the creation of the other pipeline.*
+
 # Description of the content of this folder
 * **Use_YAML_files_in_Azure_DevOps_to_manage_the_deployment_of_your_solutions.pptx**: slide deck presented at the event
 * **Pipelines_YAML**
