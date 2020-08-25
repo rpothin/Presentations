@@ -26,3 +26,4 @@ You can watch the recording of the session at the event following this link: [**
 * ["Approvals in environments with multi-stage YAML pipelines" by Sam Smith](https://samlearnsazure.blog/2020/02/05/approvals-in-environments/)
 * [How to extract the branch full name from the "Build.SourceBranch" predefined variable](https://github.com/microsoft/azure-pipelines-agent/issues/838#issuecomment-641201222)
 * ["Azure DevOps YAML pipeline : Template = task group" by Kenichiro Nakamura](https://dev.to/kenakamu/azure-devops-yaml-pipeline-template-task-group-56bb)
+* [CDS for Code extension for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=CloudSmithConsulting.cds-for-code#:~:text=Welcome%20to%20the%20CloudSmith%20CDS,Microsoft%E2%84%A2%20CDS%20Development%20Toolkit.)
