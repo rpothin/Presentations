@@ -1,5 +1,5 @@
 # Demonstration video
-You can watch a video with the different demonstrations I have shown during my session at the event following this link: https://youtu.be/HSXHwQzDY4o
+You can watch a video with the different demonstrations I have shown during my session at the event following [**this link**](https://youtu.be/HSXHwQzDY4o).
 
 # Complementary notes
 - The Help Panes are still in preview version, and the production version should go live in April 2020.
@@ -14,5 +14,5 @@ be corrected in the production version of this feature.
 - In the Lead Help Page you will have to change the image and the video because the links I used are not public, so you will not be able to access it
 
 # Useful links:
-- Microsoft Documentation: https://docs.microsoft.com/en-us/powerapps/maker/common-data-service/create-custom-help-pages
-- My blog: https://medium.com/rapha%C3%ABl-pothin
+- Microsoft Documentation regarding **Help Panes**: [Link](https://docs.microsoft.com/en-us/powerapps/maker/common-data-service/create-custom-help-pages)
+- [My blog](https://medium.com/rapha%C3%ABl-pothin)

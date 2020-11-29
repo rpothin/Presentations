@@ -4,7 +4,7 @@ You can watch the recording of the session at the event following this link: [**
 *Note: The error I got during the session (at 15:40) is due to the fact that the pipeline tried to make a commit at the same time I was making the commit for the creation of the other pipeline.*
 
 # Description of the content of this folder
-* **Use_YAML_files_in_Azure_DevOps_to_manage_the_deployment_of_your_solutions.pptx**: slide deck presented at the event
+* **Use_YAML_files_in_Azure_DevOps_to_manage_the_deployment_of_your_solutions.pdf**: slide deck presented at the event
 * **Pipelines_YAML**
   * **CI_CD**
     * **manual-publish-export-unpack-commit-solution.yml**: pipeline that need to be trigger manually to make a publish on an environment, export a solution as unmanaged, unpack it and then push it to the repository in the considered branch (3 variables: the commit message, the service connection to use and the solution unique name)
