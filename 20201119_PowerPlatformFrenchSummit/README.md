@@ -6,6 +6,9 @@
 
 - Slides presented during the session: [**La gestion des congés avec Dynamics 365 Human Resources et Teams.pdf**](https://github.com/rpothin/Presentations/blob/main/20201119_PowerPlatformFrenchSummit/La%20gestion%20des%20cong%C3%A9s%20avec%20Dynamics%20365%20Human%20Resources%20et%20Teams.pdf)
 - Video recording of the session: [**Link**](https://youtu.be/O-BKYRqAKu4)
+- Solution used in the demonstration: [**HumanResourcesAppEnhancements_1_0_0.zip**]()
+
+> **Note:** *You need to be positionned on a Dataverse environnement associated to a Dynamics 365 Human Resources instance if you want to use the solution*
 
 ## Améliorer votre relation client grâce à Dynamics 365 Customer Voice et Dynamics 365 Marketing (Improve your customer relationship with Dynamics 365 Customer Voice and Dynamics 365 Marketing)
 
