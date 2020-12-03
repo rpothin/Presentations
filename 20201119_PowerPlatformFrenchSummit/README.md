@@ -8,7 +8,9 @@
 - Video recording of the session: [**Link**](https://youtu.be/O-BKYRqAKu4)
 - Solution used in the demonstration: [**HumanResourcesAppEnhancements_1_0_0.zip**](https://github.com/rpothin/Presentations/blob/main/20201119_PowerPlatformFrenchSummit/HumanResourcesAppEnhancements_1_0_0.zip)
 
-> **Note:** *You need to be positionned on a Dataverse environnement associated to a Dynamics 365 Human Resources instance if you want to use the solution*
+> **Notes:**
+> - *You need to be positionned on a Dataverse environnement associated to a Dynamics 365 Human Resources instance if you want to use the solution*
+> - *After the import of the **HumanResourcesAppEnhancements_1_0_0.zip** solution, open the **Leave Request (Approved) - Notifications in Teams** flow in edition and update the following fields in the **Run "Leave Request Details Sync to CDSLeave Request Details Sync to CDS Test"** action: **d365hrUrl**, **userLogin** and **userPassword***
 
 ## Améliorer votre relation client grâce à Dynamics 365 Customer Voice et Dynamics 365 Marketing (Improve your customer relationship with Dynamics 365 Customer Voice and Dynamics 365 Marketing)
 
