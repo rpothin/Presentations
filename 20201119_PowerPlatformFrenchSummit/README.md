@@ -31,6 +31,7 @@
 - Workers: update the email addresses of the workers associated to the users above
 - Set the workflow on a leave type (for example, PTO) to **Manager approval** (should be 000224)
 - Enable the [**Dataverse integration**](https://docs.microsoft.com/en-us/dynamics365/human-resources/hr-admin-integration-common-data-service)
+- Set the **Enable notifications for Teams app** option to **Yes** in the **System parameters**
 
 #### Update of the elements in the solution
 

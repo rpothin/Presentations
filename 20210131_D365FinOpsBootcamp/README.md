@@ -2,7 +2,7 @@
 
 ## Deep dive in the Human Resources app for Teams
 
-- Slides presented during the session: *Not yet available* <!-- [**Deep dive in the Human Resources app for Teams.pdf**](https://github.com/rpothin/Presentations/blob/main/20210131_D365FinOpsBootcamp/) -->
+- Slides presented during the session: [**Deep dive in the Human Resources app for Teams.pdf**](https://github.com/rpothin/Presentations/blob/main/20210131_D365FinOpsBootcamp/)
 - Video recording of the session: *Not yet available* <!-- [**Link**]() -->
 - Solution used in the demonstration: [**HumanResourcesAppEnhancements_1_0_0.zip**](https://github.com/rpothin/Presentations/blob/main/20210131_D365FinOpsBootcamp/HumanResourcesAppEnhancements_1_0_0.zip)
 
@@ -28,6 +28,7 @@
 - Workers: update the email addresses of the workers associated to the users above
 - Set the workflow on a leave type (for example, PTO) to **Manager approval** (should be 000224)
 - Enable the [**Dataverse integration**](https://docs.microsoft.com/en-us/dynamics365/human-resources/hr-admin-integration-common-data-service)
+- Set the **Enable notifications for Teams app** option to **Yes** in the **System parameters**
 
 #### Update of the elements in the solution
 
