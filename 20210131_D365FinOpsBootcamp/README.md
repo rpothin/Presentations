@@ -2,7 +2,7 @@
 
 ## Deep dive in the Human Resources app for Teams
 
-- Slides presented during the session: [**Deep dive in the Human Resources app for Teams.pdf**](https://github.com/rpothin/Presentations/blob/main/20210131_D365FinOpsBootcamp/)
+- Slides presented during the session: [**Deep dive in the Human Resources app for Teams.pdf**](https://github.com/rpothin/Presentations/blob/main/20210131_D365FinOpsBootcamp/Deep%20dive%20in%20the%20Human%20Resources%20app%20for%20Teams.pdf)
 - Video recording of the session: *Not yet available* <!-- [**Link**]() -->
 - Solution used in the demonstration: [**HumanResourcesAppEnhancements_1_0_0.zip**](https://github.com/rpothin/Presentations/blob/main/20210131_D365FinOpsBootcamp/HumanResourcesAppEnhancements_1_0_0.zip)
 
