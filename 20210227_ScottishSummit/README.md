@@ -60,7 +60,7 @@
 5. Select the **LeaveRequests.json** file
 6. Click on **Open**
 
-> I am not sure it will work as easily, but I really hope it will 😊
+> I am not sure it will be so easy, but I really hope it will 😊
 
 #### Configuration of the **LeaveRequestsApprovalMonitoring.pbix** Power BI Report
 
