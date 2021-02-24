@@ -4,9 +4,9 @@
 
 - Slides presented during the session: [**Manage leave requests from Dynamics 365 HR in Teams.pdf**]()
 - Video recording of the session: *Not yet available* <!-- [**Link**]() -->
-- Solution used in the demonstration: [**HumanResourcesAppEnhancements_1_1_0.zip**]()
-- Power Bi Dataflow definition used to build the Power BI Report used in the demonstration: [**LeaveRequests.json**]()
-- Power BI Report used in the demonstration: [**LeaveRequestsApprovalMonitoring.pbix**]()
+- Solution used in the demonstration: [**HumanResourcesAppEnhancements_1_1_0.zip**](https://github.com/rpothin/Presentations/blob/main/20210227_ScottishSummit/HumanResourcesAppEnhancements_1_1_0.zip)
+- Power Bi Dataflow definition used to build the Power BI Report used in the demonstration: [**LeaveRequests.json**](https://github.com/rpothin/Presentations/blob/main/20210227_ScottishSummit/LeaveRequests.json)
+- Power BI Report used in the demonstration: [**LeaveRequestsApprovalMonitoring.pbix**](https://github.com/rpothin/Presentations/blob/main/20210227_ScottishSummit/LeaveRequestsApprovalMonitoring.pbix)
 
 ### How to use the **HumanResourcesAppEnhancements_1_1_0.zip** solution
 
@@ -74,4 +74,10 @@
    3. Click on **Done**
 4. Click on **Close & Apply**
 5. Remove the canvas app
-6. Add the canvas app you imported with the solution
+6. Add the canvas app you imported with the solution to the Power BI Report selecting the following fields: LeaveDate, LeaveRequestComment, LeaveRequestNumber, LeaveRequestSubmissionDate, LeaveType, LeaveTypeDescription, WorkerFullName, WorkerNumber, ManagerFullName, ManagerPrimaryEmailAddress, NbOfDaysBeforeLeave and NbOfHoursRequested
+7. Save the Power BI Report
+8. Publish the Power BI Report to the considered Power BI Workspace
+
+> Now you can:
+> - configure the refresh schedule of the Power BI Dataflow and the Power BI Dataset
+> - add the Power BI report to a Teams channel as a tab
