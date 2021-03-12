@@ -3,7 +3,7 @@
 ## Manage leave requests from Dynamics 365 HR in Teams
 
 - Slides presented during the session: [**Manage leave requests from Dynamics 365 HR in Teams.pdf**]()
-- Video recording of the session: *Not yet available* <!-- [**Link**]() -->
+- Video recording of the session: [**Link**](https://youtu.be/yPQjIumDT3w)
 - Solution used in the demonstration: [**HumanResourcesAppEnhancements_1_1_0.zip**](https://github.com/rpothin/Presentations/blob/main/20210227_ScottishSummit/HumanResourcesAppEnhancements_1_1_0.zip)
 - Power Bi Dataflow definition used to build the Power BI Report used in the demonstration: [**LeaveRequests.json**](https://github.com/rpothin/Presentations/blob/main/20210227_ScottishSummit/LeaveRequests.json)
 - Power BI Report used in the demonstration: [**LeaveRequestsApprovalMonitoring.pbix**](https://github.com/rpothin/Presentations/blob/main/20210227_ScottishSummit/LeaveRequestsApprovalMonitoring.pbix)
