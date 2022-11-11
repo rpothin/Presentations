@@ -1,5 +1,5 @@
 > I had the chance to present 2 sessions during the 2022 edition of the [**365 Power Up Saturday - Tampa**](https://www.365powerupsaturdaytampa.com/) event.
-> 
+
 ## Event-driven architecture with Dataverse and Azure
 
 - Slides presented during the session: [**Event-driven architecture with Dataverse and Azure**](./Event-driven%20architecture%20with%20Dataverse%20and%20Azure.pdf)
