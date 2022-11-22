@@ -1,5 +1,5 @@
 > I had the chance to present 2 sessions during the second edition (2021) of the [**Power Platform French Summit**](https://www.powerplatformfrenchsummit.com/).
-> 
+
 > **Note:** *All my sessions during this event were in French.*
 
 ## Les bénéfices d'une bonne opérationnalisation de vos applications (The benefits of a good operationalization of your applications)
