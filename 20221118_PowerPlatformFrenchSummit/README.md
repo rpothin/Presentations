@@ -12,3 +12,10 @@
 
 - [Event-driven architecture style - Microsoft Documentation](https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/event-driven)
 - [Putting your events on a diet](https://particular.net/blog/putting-your-events-on-a-diet)
+
+## (Bonus) Ask the Experts - "Code first / Pro-code"
+
+[**#PPFS2022 - Technique - Prairie - Ask the Experts - "Code first / Pro-code"**](https://youtu.be/NQZeZzf7wos?t=32700) with the dream team below:
+- [**Allan De Castro**](https://twitter.com/decastroallan)
+- [**Pierre Bourdial**](https://twitter.com/PeyoBouBou)
+- [**Nicolas Kirrmann**](https://twitter.com/nicokirr)
