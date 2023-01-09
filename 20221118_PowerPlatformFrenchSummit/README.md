@@ -1,6 +1,6 @@
 > I had the chance to present my first session with a co-speaker (the amazing [**Allan De Castro**](https://twitter.com/decastroallan)) during this third edition (2022) of the [**Power Platform French Summit**](https://www.powerplatformfrenchsummit.com/).
 
-> **Note:** *This session was in French.*
+> **Note:** *These sessions were in French.*
 
 ## Architecture orientée événements avec Dataverse et Azure (Event-driven architecture with Dataverse and Azure)
 
