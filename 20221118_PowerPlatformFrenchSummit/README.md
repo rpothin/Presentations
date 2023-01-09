@@ -1,4 +1,4 @@
-> I had the chance to present my first session with a co-speaker (the amazing [**Allan De Castro**](https://twitter.com/decastroallan)) during the second edition (2021) of the [**Power Platform French Summit**](https://www.powerplatformfrenchsummit.com/).
+> I had the chance to present my first session with a co-speaker (the amazing [**Allan De Castro**](https://twitter.com/decastroallan)) during this third edition (2022) of the [**Power Platform French Summit**](https://www.powerplatformfrenchsummit.com/).
 
 > **Note:** *This session was in French.*
 
