@@ -8,7 +8,7 @@
 ## Advanced lesson
 
 - Slides presented during the session: [**ALM for Power Platform with GitHub (Advanced)**](./ALM%20for%20Power%20Platform%20with%20GitHub%20(Advanced).pdf)
-- Video recording of the session: *Not yet available*
+- Video recording of the session: [**Zero to Hero - Lesson 10 - ALM for Power Platform with GitHub by Raphael Pothin**](https://youtu.be/T9_zCI9y4OE)
 
 ## Other resources regarding this topic
 
