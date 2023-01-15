@@ -13,7 +13,6 @@
 ## Empowering Power Platform developers with GitHub 
 
 - Slides presented during the session: [**Empowering Power Platform developers with GitHub**](./Empowering%20Power%20Platform%20developers%20with%20GitHub.pdf)
-- GitHub repository with the elements presented in the demonstrations: [**rpothin/PowerPlatform-Development-With-GitHub-Demo**](https://github.com/rpothin/PowerPlatform-Development-With-GitHub-Demo)
 
 ### Other resources regarding this topic
 
