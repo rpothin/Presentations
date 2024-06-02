@@ -1,5 +1,7 @@
 # [DynamicsMinds 2024](https://www.dynamicsminds.com/)
 
+![image](https://github.com/rpothin/Presentations/assets/23240245/b23ae7b8-e1e9-4d32-8ab9-116ff43549cd)
+
 ## Improve Power Platform developer’s experience with GitHub
 
 - Slides presented at the beginning the workshop: [**RaphaelPothin_Workshop_Improve Power Platform developer’s experience with GitHub**](./RaphaelPothin_Workshop_Improve%20Power%20Platform%20developer’s%20experience%20with%20GitHub.pdf)
