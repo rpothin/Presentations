@@ -1,4 +1,4 @@
-# [DynamicsMinds 2024](https://www.dynamicsminds.com/)
+# [DynamicsMinds 2024](https://www.dynamicsminds.com/dynamicsminds-2024/)
 
 ![image](https://github.com/rpothin/Presentations/assets/23240245/b23ae7b8-e1e9-4d32-8ab9-116ff43549cd)
 
