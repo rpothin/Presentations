@@ -1,4 +1,4 @@
-# [Power Platform Community Conference](Event URL)
+# [Power Platform Community Conference](https://powerplatformconf.com/)
 
 - **Date:** October 28-30, 2025
 - **Location:** Las Vegas
