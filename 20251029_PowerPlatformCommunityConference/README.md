@@ -20,7 +20,8 @@ As Power Platform adoption scales, traditional "ClickOps" governance can no long
 
 ## [Deep-Dive into Power Platform Managed Security](https://powerplatformconf.com/#!/session/Deep-Dive%20into%20Power%20Platform%20Managed%20Security/7649)
 
-Presented in collaboration with [Tomas Prokop](https://github.com/TomProkop).
+> [!IMPORTANT]
+> Presented in collaboration with [Tomas Prokop](https://github.com/TomProkop).
 
 ### 📝 Abstract
 Keeping track of sensitive data storage locations and diagnosing issues without proper tracing is challenging. Low-code platforms like Power Platform enable users to automate data flows easily, increasing the risk of losing control over sensitive data and facilitating data exfiltration.
