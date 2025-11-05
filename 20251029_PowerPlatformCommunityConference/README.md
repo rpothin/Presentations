@@ -36,10 +36,17 @@ In this session, we will review native Power Platform logs and explore methods f
 
 ### 🎨 Presentation Materials
 - **📑 Slide Deck:** [Deep-Dive into Power Platform Managed Security](./DeepDiveIntoPowerPlatformManagedSecurity/Deep-Dive%20into%20Power%20Platform%20Managed%20Security.pdf)
-- **💻 Demo Resources:** KQL queries coming soon...
+- **💻 Demo Resources:**
+   - [Dataverse - Audit logging disabled - Enhanced analytic rule](./DeepDiveIntoPowerPlatformManagedSecurity/Dataverse%20-%20Audit%20logging%20disabled%20-%20Enhanced.yaml) 
+   - [KQL queries](./DeepDiveIntoPowerPlatformManagedSecurity/queries.kql)
 - **📹 Demonstrations Recording:** [Deep-Dive into Power Platform Managed Security](https://youtu.be/KbKxKhuSOF4?si=Qh_2cu-Y_TiDwZ3u)
 
 ### 🛠️ Resources & References
 - [Power Platform Managed Security | Microsoft Docs](https://learn.microsoft.com/en-us/power-platform/admin/security/managed-security)
+- [Power Platform’s protection — Microsoft Purview Compliance](https://medium.com/rapha%C3%ABl-pothin/power-platforms-protection-microsoft-purview-compliance-d8d5b5ecc2d4)
+- [Connect to and manage Microsoft Dataverse in Microsoft Purview | Microsoft Docs](https://learn.microsoft.com/en-us/purview/register-scan-dataverse?tabs=MI)
+- [Power Platform’s Protection — Microsoft Purview the data guardian](https://medium.com/rapha%C3%ABl-pothin/power-platforms-protection-microsoft-purview-the-data-guardian-d7bc34620655)
 - [Microsoft Sentinel solution for Microsoft Business Apps | Microsoft Docs](https://learn.microsoft.com/en-us/azure/sentinel/business-applications/solution-overview)
+- [Code of the resources in the Microsoft Sentinel solution for Microsoft Business Apps | GitHub](https://github.com/Azure/Azure-Sentinel/tree/master/Solutions/Microsoft%20Business%20Applications)
+- [Power Platform’s Protection — Microsoft Sentinel, the watchtower](https://medium.com/rapha%C3%ABl-pothin/power-platforms-protection-microsoft-sentinel-the-watchtower-dbbccc2516c5)
 - [Power Platform Integration with Application Insights | Microsoft Docs](https://learn.microsoft.com/en-us/power-platform/admin/overview-integration-application-insights)

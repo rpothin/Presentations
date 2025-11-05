@@ -1,0 +1,366 @@
+// ============================================================================
+// Query 1: Confirm Audit Logging Was Disabled
+// ============================================================================
+// Purpose: Validate the initial security alert by confirming audit logging 
+//          was disabled in the monitored Dataverse environment
+//
+// Run in: Microsoft Sentinel Log Analytics Workspace
+//
+// Context: This query responds to a Sentinel alert about audit logging being
+//          disabled - a classic defense evasion technique (MITRE ATT&CK T1562)
+//          often used before malicious activity to hide evidence
+//
+// Investigation Phase: Initial Alert Validation
+// Security Insight: Disabling audit logs is a red flag indicating potential
+//                   data exfiltration or unauthorized changes
+//
+// How to use: Adjust t1 and t2 to your investigation time window
+// ============================================================================
+let t1 = datetime(2025-10-27T19:00);
+let t2 = datetime(2025-10-27T21:00);
+DataverseActivity
+| where TimeGenerated between (t1 .. t2)
+| where OriginalObjectId has "Disable" and OriginalObjectId has "Audit"
+| project TimeGenerated, UserId, ClientIp, Message, OriginalObjectId, InstanceUrl
+
+// ============================================================================
+// Query 2: User Activity Overview Across Power Platform Security Logs
+// ============================================================================
+// Purpose: Build a comprehensive timeline of all suspicious user activities
+//          across all Power Platform security log tables in Sentinel
+//
+// Run in: Microsoft Sentinel Log Analytics Workspace
+//
+// Context: After confirming audit was disabled, we need to understand what
+//          the user did during the investigation window across the platform
+//
+// Investigation Phase: User Activity Timeline Analysis (Sentinel Security Logs)
+// Security Insight: Union query across 5 key Power Platform tables provides
+//                   complete visibility into user actions (flows, apps, admin
+//                   operations, connectors, DLP changes)
+//
+// Key Learning: This shows what IS visible in security logs - but HTTP actions
+//               in Power Automate won't appear here because they don't create
+//               connection records (this is a known blind spot we'll address
+//               with Application Insights in later queries)
+//
+// How to use: Replace suspicious_user with the account under investigation
+// ============================================================================
+let t1 = datetime(2025-10-27T19:00);
+let t2 = datetime(2025-10-27T21:00);
+let suspicious_user = "raphael@rpothinmvp.onmicrosoft.com";
+union isfuzzy=true
+  (PowerAutomateActivity
+   | where TimeGenerated between (t1 .. t2)
+   | where UserUpn =~ suspicious_user
+   | project TimeGenerated, Source = "PowerAutomateActivity", EventOriginalType, UserUpn),
+  (PowerPlatformAdminActivity
+   | where TimeGenerated between (t1 .. t2)
+   | where ActorName =~ suspicious_user
+   | project TimeGenerated, Source = "PowerPlatformAdminActivity", EventOriginalType, ActorName),
+  (PowerAppsActivity
+   | where TimeGenerated between (t1 .. t2)
+   | where ActorName =~ suspicious_user
+   | project TimeGenerated, Source = "PowerAppsActivity", EventOriginalType, ActorName),
+  (PowerPlatformConnectorActivity
+   | where TimeGenerated between (t1 .. t2)
+   | where ActorName =~ suspicious_user
+   | project TimeGenerated, Source = "PowerPlatformConnectorActivity", EventOriginalType, ActorName),
+  (PowerPlatformDlpActivity
+   | where TimeGenerated between (t1 .. t2)
+   | where ActorName =~ suspicious_user
+   | project TimeGenerated, Source = "PowerPlatformDlpActivity", EventOriginalType, ActorName)
+| order by TimeGenerated asc
+
+// ============================================================================
+// Query 3: Power Platform Admin API Call Pattern Analysis
+// ============================================================================
+// Purpose: Analyze frequency and patterns of Power Platform Admin API calls
+//          to identify potential reconnaissance or bulk operations
+//
+// Run in: Microsoft Sentinel Log Analytics Workspace
+//
+// Context: Admin API calls can reveal automation patterns, reconnaissance
+//          activity, or bulk operations against Power Platform
+//
+// Investigation Phase: API Call Pattern Analysis (Sentinel Security Logs)
+// Security Insight: High-frequency API calls, especially with consistent
+//                   success rates, indicate automated operations rather than
+//                   manual user activity
+//
+// What to look for:
+//   - CallCount: High numbers suggest automation or bulk operations
+//   - SuccessRate: Near 100% suggests well-formed automated requests
+//   - Duration: Short time spans with many calls indicate scripted activity
+//   - UniqueUserAgents: Single agent suggests programmatic access
+//
+// How to use: Results sorted by CallCount show the most active API endpoints
+// ============================================================================
+let t1 = datetime(2025-10-27T19:00);
+let t2 = datetime(2025-10-27T21:00);
+let suspicious_user = "raphael@rpothinmvp.onmicrosoft.com";
+PowerPlatformAdminActivity
+| where TimeGenerated between (t1 .. t2)
+| where ActorName =~ suspicious_user
+| where EventOriginalType == "ApiEndpointCallEvent"
+| extend ParsedProperties = parse_json(Properties)
+| extend 
+    UrlPath = tostring(ParsedProperties["url.path"]),
+    HttpMethod = tostring(ParsedProperties["http.request.method"]),
+    HttpStatusCode = toint(ParsedProperties["http.response.status_code"]),
+    UserAgent = tostring(ParsedProperties["user_agent.original"])
+| summarize 
+    CallCount = count(),
+    SuccessfulCalls = countif(HttpStatusCode == 200),
+    FailedCalls = countif(HttpStatusCode != 200),
+    FirstCall = min(TimeGenerated),
+    LastCall = max(TimeGenerated),
+    UniqueUserAgents = dcount(UserAgent),
+    StatusCodes = make_set(HttpStatusCode)
+    by UrlPath, HttpMethod, ActorName
+| extend 
+    Duration = datetime_diff('minute', LastCall, FirstCall),
+    SuccessRate = round(100.0 * SuccessfulCalls / CallCount, 2)
+| order by CallCount desc
+
+// ============================================================================
+// Query 4: Power Automate Flow Creation and Modification Detection
+// ============================================================================
+// Purpose: Identify when suspicious flows were created or modified during
+//          the investigation window
+//
+// Run in: Microsoft Sentinel Log Analytics Workspace
+//
+// Context: Flow creation shortly after audit logging is disabled is a strong
+//          indicator of malicious intent - the attacker creates their data
+//          exfiltration tool after hiding evidence
+//
+// Investigation Phase: Flow Creation Detection (Sentinel Security Logs)
+// Security Insight: This confirms a flow was created/modified, but CANNOT
+//                   tell us what actions are inside the flow (especially
+//                   HTTP actions which don't create connection records)
+//
+// Limitation: This is a critical blind spot in security logs - we can see
+//             the flow exists but not what it does. HTTP actions in flows
+//             are invisible here and require Application Insights to detect
+//
+// Next step: Use FlowDetailsUrl to manually inspect the flow, or query
+//            Application Insights operational logs for HTTP action execution
+//
+// How to use: Results show flow creation/edit events in chronological order
+// ============================================================================
+let t1 = datetime(2025-10-27T19:00);
+let t2 = datetime(2025-10-27T21:00);
+let suspicious_user = "raphael@rpothinmvp.onmicrosoft.com";
+PowerAutomateActivity
+| where TimeGenerated between (t1 .. t2)
+| where UserUpn =~ suspicious_user
+| where EventOriginalType in ("CreateFlow", "EditFlow")
+| project TimeGenerated, EventOriginalType, FlowDetailsUrl
+| order by TimeGenerated asc
+
+// ============================================================================
+// Query 5: Bridge Security Alerts with Operational Telemetry
+// ============================================================================
+// Purpose: Correlate Sentinel security alerts with Application Insights
+//          operational data to reveal the complete attack story
+//
+// Run in: Microsoft Sentinel Log Analytics Workspace (with cross-workspace query)
+//
+// Context: This query demonstrates the convergence of security monitoring
+//          (Sentinel) and operational telemetry (Application Insights) in
+//          a single unified investigation
+//
+// Investigation Phase: Security-Operations Convergence (Sentinel + App Insights)
+// Security Insight: This is where the magic happens - we're joining
+//                   SecurityAlert (from Sentinel) with AppRequests 
+//                   (from Application Insights) to see what operations
+//                   occurred around the security incident
+//
+// Why this matters:
+//   - Security logs tell us audit was disabled
+//   - Operational logs reveal what happened during the "blind spot"
+//   - Together they provide complete incident visibility
+//
+// Key technique: Time window correlation (+/- 2 hours around alert)
+//                catches related activity before and after the alert
+//
+// What to look for:
+//   - High request counts to specific API endpoints (e.g., /contacts)
+//   - Patterns indicating bulk data operations
+//   - Operations that occurred during the audit logging gap
+//
+// How to use: Update AlertName to match your Sentinel alert
+//             Adjust time windows as needed for your investigation
+//             Replace [APP-INSIGHTS-WORKSPACE-NAME] with your App Insights workspace name
+//
+// Note: This query uses cross-workspace join syntax to query Application Insights
+//       data from a separate Log Analytics workspace. If your Sentinel and App 
+//       Insights share the same workspace, you can remove the workspace() wrapper.
+// ============================================================================
+SecurityAlert
+| where TimeGenerated between (datetime(2025-10-27T19:00) .. datetime(2025-10-27T21:00))
+| where AlertName == "Dataverse - Audit logging disabled in https://canadiancloudsummitdemo-crmprod.crm3.dynamics.com/"
+| project AlertId = SystemAlertId,
+          AlertName,
+          AlertTime = TimeGenerated,
+          WindowStart = TimeGenerated - 2h,
+          WindowEnd   = TimeGenerated + 2h,
+          joinKey = 1
+| join kind=leftouter (
+    workspace("[APP-INSIGHTS-WORKSPACE-NAME]").AppRequests
+    | where TimeGenerated between (datetime(2025-10-27T19:00) .. datetime(2025-10-27T21:00))
+    | project ReqTime = TimeGenerated,
+              OperationName = tostring(OperationName),
+              joinKey = 1
+  ) on joinKey
+| where ReqTime between (WindowStart .. WindowEnd)
+| summarize Requests = count() 
+  by AlertId, AlertName, OperationName
+| order by AlertId asc, Requests desc
+
+// ============================================================================
+// Query 6: Dataverse Web API Activity Pattern Visualization
+// ============================================================================
+// Purpose: Visualize the volume and pattern of Dataverse API requests to
+//          identify suspicious bulk operations or data extraction
+//
+// Run in: Application Insights Log Analytics Workspace
+//
+// Context: We've pivoted from Sentinel security logs to Application Insights
+//          operational telemetry to see what actually happened during the
+//          investigation window
+//
+// Investigation Phase: Operational Activity Visualization (Application Insights)
+// Security Insight: Massive spikes in API requests indicate automated bulk
+//                   operations, not normal user activity. This is the smoking
+//                   gun for data exfiltration
+//
+// What the timechart reveals:
+//   - Sharp spikes = automated extraction (not human browsing)
+//   - High RequestCount = bulk operations
+//   - UniqueIPs count = source diversity (or single automated source)
+//   - Patterns across time = systematic vs. sporadic activity
+//
+// Why this matters: Security logs can't show this level of operational detail.
+//                   Application Insights reveals the actual data access patterns
+//                   that occurred during the audit logging "blind spot"
+//
+// How to use: The timechart visualization makes patterns immediately obvious
+//             Look for unusual spikes or sustained high-volume activity
+// ============================================================================
+let t1 = datetime(2025-10-27T19:00);
+let t2 = datetime(2025-10-27T21:00);
+AppRequests
+| where TimeGenerated between (t1 .. t2)
+| summarize RequestCount = count(), UniqueIPs = dcount(ClientIP) by bin(TimeGenerated, 1m), OperationName, ResultCode
+| render timechart
+
+// ============================================================================
+// Query 7: Data Extraction Pattern Classification
+// ============================================================================
+// Purpose: Analyze the characteristics of data extraction by examining
+//          URL patterns, query types, and request volumes
+//
+// Run in: Application Insights Log Analytics Workspace
+//
+// Context: After seeing the spike in activity, we need to understand HOW
+//          the data was extracted - what query patterns were used
+//
+// Investigation Phase: Extraction Pattern Analysis (Application Insights)
+// Security Insight: URL patterns reveal the sophistication and intent of
+//                   the data extraction operation
+//
+// What to look for:
+//   - Batch queries with $top=5000 = systematic bulk extraction
+//   - $select parameter = targeted field extraction (more sophisticated)
+//   - $filter parameter = selective data harvesting
+//   - UniqueRequests count = variety of queries vs. repeated pattern
+//   - TotalRequests = volume indicating bulk operation
+//
+// Attack patterns revealed:
+//   - Simple: Repeated full record queries
+//   - Sophisticated: Batch queries with field selection and filtering
+//   - Targeted: Specific query patterns for high-value data
+//
+// Key indicator: Thousands of requests in minutes with systematic patterns
+//                confirms automated harvesting, not user browsing
+//
+// How to use: Examine the Url column to see exact OData query patterns
+//             Look for batch operations ($top, $skip) and field selection
+// ============================================================================
+let t1 = datetime(2025-10-27T19:00);
+let t2 = datetime(2025-10-27T21:00);
+AppRequests
+| where TimeGenerated between (t1 .. t2)
+| where Url contains "/contacts"
+| extend QueryType = case(
+    Url contains "REDACTED-QueryParam", "Not Full Query",
+    "Full Query")
+| summarize TotalRequests = count(), UniqueRequests = dcount(Url) by Url, QueryType, ResultCode
+
+// ============================================================================
+// Query 8: HTTP Action Exfiltration Detection (Critical Discovery)
+// ============================================================================
+// Purpose: Detect outbound HTTP calls from Power Automate flows that
+//          indicate data exfiltration to external endpoints
+//
+// Run in: Application Insights Log Analytics Workspace
+//
+// Context: This is THE critical discovery - revealing HTTP action usage
+//          that was completely invisible in Sentinel security logs
+//
+// Investigation Phase: Exfiltration Method Detection (Application Insights)
+// Security Insight: **This is the first time we can see the flow is using
+//                   HTTP actions** - these don't create connection records,
+//                   so they're invisible in Power Platform admin logs and
+//                   PowerPlatformConnectorActivity in Sentinel
+//
+// ⚠️ CRITICAL BLIND SPOT REVEALED:
+//    - HTTP actions in Power Automate DO NOT create connection objects
+//    - They DO NOT appear in PowerPlatformConnectorActivity logs
+//    - They ARE ONLY visible in Application Insights operational telemetry
+//    - Without Application Insights, this attack vector is completely hidden
+//
+// What this query reveals:
+//   - Target: External domain receiving exfiltrated data
+//   - ActionType: "Http" confirms HTTP action usage (not standard connectors)
+//   - FlowName: Identifies the malicious flow
+//   - Success/ResultCode: Confirms successful data transmission
+//   - DurationMs: Shows operation timing
+//
+// Why this matters: This completes the attack story:
+//   1. Audit disabled (Sentinel detected)
+//   2. Flow created (Sentinel detected)
+//   3. Data extracted from Dataverse (Application Insights revealed)
+//   4. Data exfiltrated via HTTP POST (Application Insights revealed)
+//
+// Defense recommendations:
+//   - Enable Application Insights for all production environments
+//   - Implement DLP policies to block/restrict HTTP actions
+//   - Monitor AppDependencies for external HTTP calls
+//   - Alert on HTTP actions to non-approved domains
+//
+// How to use: Target column shows where data was sent
+//             FlowName identifies the malicious automation
+//             Correlate TimeGenerated with data extraction patterns
+// ============================================================================
+let t1 = datetime(2025-10-27T19:00);
+let t2 = datetime(2025-10-27T21:00);
+AppDependencies
+| where TimeGenerated between (t1 .. t2)
+| where DependencyType == "Cloud Flow/Cloud flow actions"
+| extend ParsedProperties = parse_json(Properties)
+| extend PropertiesData = parse_json(tostring(ParsedProperties.Data))
+| extend ActionType = tostring(PropertiesData.actionType)
+| where ActionType == "Http"
+| project TimeGenerated, Target, ActionType, 
+          ActionName = tostring(PropertiesData.actionName), 
+          FlowName = tostring(PropertiesData.FlowDisplayName), 
+          Status = tostring(PropertiesData.status),
+          DurationMs, Success, ResultCode,
+          // Debug fields - useful for understanding the data structure
+          RawData = Data,
+          RawProperties = Properties,
+          ParsedPropertiesData = PropertiesData
+| order by TimeGenerated asc

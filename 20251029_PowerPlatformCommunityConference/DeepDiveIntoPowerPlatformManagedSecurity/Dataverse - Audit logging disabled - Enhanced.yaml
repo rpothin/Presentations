@@ -1,0 +1,138 @@
+kind: Scheduled
+name: Dataverse - Audit logging disabled (Enhanced)
+description: |
+  Detects when audit logging is disabled in Dataverse environments through multiple detection patterns.
+  This improved version addresses gaps in the original Microsoft rule by detecting:
+  - Direct "Disable Organization Audit" actions
+  - Updates to audit configuration settings
+  - Changes to audit properties (isauditenabled, isuseraccessauditenabled, isreadauditenabled)
+  
+  The rule uses a layered detection approach to catch audit disabling through:
+  1. Message pattern matching (Update, UpdateAuditSettings, Disable Organization Audit)
+  2. OriginalObjectId pattern analysis (Disable + Audit keywords)
+  3. Fields property examination (audit properties being set to false)
+  
+  Improvements over original rule:
+  - Catches "Disable Organization Audit" message type (missed by original)
+  - Detects events even when Fields array is empty
+  - Uses multiple indicators to reduce false negatives
+  - Better entity mapping for investigation
+  
+  Enhanced from: Microsoft Sentinel - Microsoft Business Applications solution
+  Original rule: https://github.com/Azure/Azure-Sentinel/blob/master/Solutions/Microsoft%20Business%20Applications/Analytic%20Rules/Dataverse%20-%20Audit%20logging%20disabled.yaml
+severity: Medium
+status: Available
+requiredDataConnectors:
+  - connectorId: Dataverse
+    dataTypes:
+      - DataverseActivity
+queryFrequency: 30m
+queryPeriod: 1h
+triggerOperator: gt
+triggerThreshold: 0
+tactics:
+  - DefenseEvasion
+relevantTechniques:
+  - T1562
+query: |
+  let query_frequency = 1h;
+  let audit_properties = dynamic(['isauditenabled', 'isuseraccessauditenabled', 'isreadauditenabled']);
+  let audit_messages = dynamic(['Update', 'UpdateAuditSettings', 'Disable Organization Audit', 'Disable Audit']);
+  DataverseActivity
+  | where TimeGenerated >= ago(query_frequency)
+  // Multi-pattern detection: Message-based OR OriginalObjectId-based detection
+  | where (Message has_any (audit_messages))
+      or (Message has "Disable" and Message has "Audit")
+      or (OriginalObjectId has "Disable" and OriginalObjectId has "Audit")
+      or (Message =~ "Update" and EntityName =~ "Organization")
+  // Mark events by detection method for analysis
+  | extend 
+      DetectionMethod = case(
+          Message has "Disable" and Message has "Audit", "Direct Disable Action",
+          Message =~ "UpdateAuditSettings", "Audit Settings Update",
+          OriginalObjectId has "Disable" and OriginalObjectId has "Audit", "OriginalObjectId Pattern",
+          Fields has_any (audit_properties), "Fields Property Change",
+          "Organization Update"
+      ),
+      HasAuditFields = array_length(Fields) > 0 and Fields has_any (audit_properties)
+  // If Fields present, expand and validate; otherwise, flag based on Message/OriginalObjectId
+  | extend FieldsToExpand = iff(HasAuditFields, Fields, dynamic([{"Name": "UnknownAuditProperty", "Value": "false"}]))
+  | mv-expand FieldsToExpand
+  | extend 
+      AuditValue = tostring(FieldsToExpand.Name),
+      AuditEnabled = tobool(FieldsToExpand.Value)
+  // Include if: audit property disabled OR direct disable message detected
+  | where (AuditValue in~ (audit_properties) and not(AuditEnabled))
+      or (Message has "Disable" and Message has "Audit")
+      or (OriginalObjectId has "Disable" and OriginalObjectId has "Audit")
+  // Enrich with entity information
+  | extend
+      CloudAppId = int(32780),
+      AccountName = tostring(split(UserId, '@')[0]),
+      UPNSuffix = tostring(split(UserId, '@')[1]),
+      Severity = case(
+          Message has "Disable" or not(AuditEnabled), "Medium",
+          "Low"
+      ),
+      AlertTitle = strcat("Dataverse - Audit logging disabled in ", InstanceUrl),
+      AlertDescription = case(
+          HasAuditFields, strcat("Audit settings changed in ", InstanceUrl, ". ", AuditValue, " was set to ", AuditEnabled, " by ", UserId),
+          strcat("Audit logging was disabled in ", InstanceUrl, " via direct action: '", Message, "' by ", UserId)
+      )
+  | project
+      TimeGenerated,
+      UserId,
+      ClientIp,
+      OriginalObjectId,
+      Message,
+      EntityName,
+      AuditValue,
+      AuditEnabled,
+      DetectionMethod,
+      InstanceUrl,
+      CloudAppId,
+      AccountName,
+      UPNSuffix,
+      Severity,
+      AlertTitle,
+      AlertDescription,
+      UserAgent,
+      CorrelationId,
+      CrmOrganizationUniqueName
+eventGroupingSettings:
+  aggregationKind: SingleAlert
+customDetails:
+  AuditProperty: AuditValue
+  AuditEnabled: AuditEnabled
+  DetectionMethod: DetectionMethod
+  OriginalObjectId: OriginalObjectId
+  Message: Message
+  EntityName: EntityName
+  UserAgent: UserAgent
+  CorrelationId: CorrelationId
+  OrganizationName: CrmOrganizationUniqueName
+entityMappings:
+  - entityType: Account
+    fieldMappings:
+      - identifier: Name
+        columnName: AccountName
+      - identifier: UPNSuffix
+        columnName: UPNSuffix
+  - entityType: IP
+    fieldMappings:
+      - identifier: Address
+        columnName: ClientIp
+  - entityType: CloudApplication
+    fieldMappings:
+      - identifier: AppId
+        columnName: CloudAppId
+      - identifier: InstanceName
+        columnName: InstanceUrl
+  - entityType: URL
+    fieldMappings:
+      - identifier: Url
+        columnName: InstanceUrl
+alertDetailsOverride:
+  alertDisplayNameFormat: '{{AlertTitle}}'
+  alertDescriptionFormat: '{{AlertDescription}}'
+  alertSeverityColumnName: Severity
