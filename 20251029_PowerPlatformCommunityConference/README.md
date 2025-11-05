@@ -17,6 +17,10 @@ As Power Platform adoption scales, traditional "ClickOps" governance can no long
 - [Power Platform Provider | Terraform Registry](https://registry.terraform.io/providers/microsoft/power-platform/latest/docs)
 - [microsoft/terraform-provider-power-platform](https://github.com/microsoft/terraform-provider-power-platform)
 - [Power Platform Terraform provider | Microsoft Docs](https://learn.microsoft.com/en-us/business-applications/playbook/enterprise-solutions/power-platform-terraform-provider/)
+- [Infrastructure as code for Power Platform, a light at the end of the tunnel?](https://medium.com/rapha%C3%ABl-pothin/infrastructure-as-code-for-power-platform-a-light-at-the-end-of-the-tunnel-27674c3d1a25)
+- [The Power Platform Infrastructure as Code journey — First stop: Inventory](https://medium.com/rapha%C3%ABl-pothin/the-power-platform-infrastructure-as-code-journey-first-stop-inventory-8c7e789b3d5f)
+- [The Power Platform Infrastructure as Code journey — Dawn of transformation](https://medium.com/rapha%C3%ABl-pothin/the-power-platform-infrastructure-as-code-journey-dawn-of-transformation-5b3afc89c505)
+- [The Power Platform Infrastructure as Code journey — A bright future](https://medium.com/rapha%C3%ABl-pothin/the-power-platform-infrastructure-as-code-journey-a-bright-future-19d294b8a675)
 
 ## [Deep-Dive into Power Platform Managed Security](https://powerplatformconf.com/#!/session/Deep-Dive%20into%20Power%20Platform%20Managed%20Security/7649)
 
