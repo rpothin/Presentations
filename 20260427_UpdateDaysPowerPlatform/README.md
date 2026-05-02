@@ -30,4 +30,18 @@ Terraform enables self-service Power Platform workspace provisioning and managem
 ### 🎨 Presentation Materials
 - **📑 Slide Deck:** [Deploying Power Platform and Azure infrastructure as code](./Deploying%20Power%20Platform%20and%20Azure%20infrastructure%20as%20code.pdf)
 - **💻 Demo Resources:** [Demonstration GitHub repository](https://github.com/rpothin/udpp26-power-platform-devex-with-terraform)
-- **📹 Audio Deep Dive:** [Deploying Power Platform and Azure infrastructure as code](...)
+- **📹 Audio Deep Dive:** [Deploying Power Platform and Azure infrastructure as code](https://youtu.be/seFtYALbDIg)
+
+## (Bonus) Panel Discussion - New challenges for governance
+
+### 📝 Abstract
+
+An opening panel discussion on the state of Power Platform governance. Governance practitioners share their perspectives on what has improved, what challenges remain unsolved and how AI agents and citizen development are reshaping governance strategies. Setting the stage for the governance track.
+
+### 🎭 Participants
+
+- **Tomaš Prokop** - Solution Architect at NETWORK
+- **Rami Moula** - Solution Architect at Capgemini
+- **Jukka Niiranen** - Power Platform Advisor at Niiranen Advisory
+- **Casey Burke** - Principal Product Manager at Microsoft
+- **Raphael Pothin** - Lead Reliability Engineer at Manulife
