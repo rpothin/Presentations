@@ -20,7 +20,7 @@ Most organizations still discover Power Platform security issues after the fact 
 ### 🎨 Presentation Materials
 - **📑 Slide Deck:** [Finding security threats and limiting their impact](./Finding%20security%20threats%20and%20limiting%20their%20impact.pdf)
 - **💻 Demo Resources:** [Demonstration GitHub repository](https://github.com/rpothin/udpp26-finding-security-threats)
-- **📹 Audio Deep Dive:** [Finding security threats and limiting their impact](...)
+- **📹 Audio Deep Dive:** [Finding security threats and limiting their impact](https://youtu.be/Y_4srX_ylEw)
 
 ## Deploying Power Platform and Azure infrastructure as code
 
@@ -31,6 +31,11 @@ Terraform enables self-service Power Platform workspace provisioning and managem
 - **📑 Slide Deck:** [Deploying Power Platform and Azure infrastructure as code](./Deploying%20Power%20Platform%20and%20Azure%20infrastructure%20as%20code.pdf)
 - **💻 Demo Resources:** [Demonstration GitHub repository](https://github.com/rpothin/udpp26-power-platform-devex-with-terraform)
 - **📹 Audio Deep Dive:** [Deploying Power Platform and Azure infrastructure as code](https://youtu.be/seFtYALbDIg)
+
+### 📢 Some personal work teased at the end of the session
+
+- First Power Platform AVM aligned Terraform module: [res-tenantsettings](https://registry.terraform.io/modules/rpothin/res-tenantsettings/powerplatform/latest)
+- [Pulumi Power Platform](https://github.com/rpothin/pulumi-powerplatform)
 
 ## (Bonus) Panel Discussion - New challenges for governance
 
