@@ -29,5 +29,5 @@ Terraform enables self-service Power Platform workspace provisioning and managem
 
 ### 🎨 Presentation Materials
 - **📑 Slide Deck:** [Deploying Power Platform and Azure infrastructure as code](./Deploying%20Power%20Platform%20and%20Azure%20infrastructure%20as%20code.pdf)
-- **💻 Demo Resources:** [Demonstration GitHub repository](https://github.com/rpothin/udpp26-power-platform-devex-with-terraform/actions)
+- **💻 Demo Resources:** [Demonstration GitHub repository](https://github.com/rpothin/udpp26-power-platform-devex-with-terraform)
 - **📹 Audio Deep Dive:** [Deploying Power Platform and Azure infrastructure as code](...)
