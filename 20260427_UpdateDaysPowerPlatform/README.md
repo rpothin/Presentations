@@ -10,7 +10,7 @@ AI agents introduce entirely new attack vectors that most organizations are not 
 
 ### 🎨 Presentation Materials
 - **📑 Slide Deck:** [Mitigating AI risks from injection, exfiltration and unsafe actions](./Mitigating%20AI%20risks%20from%20injection,%20exfiltration%20and%20unsafe%20actions.pdf)
-- **📹 Audio Deep Dive:** [Mitigating AI risks from injection, exfiltration and unsafe actions](...)
+- **📹 Audio Deep Dive:** [Mitigating AI risks from injection, exfiltration and unsafe actions](https://youtu.be/lGtXRfyjzlg)
 
 ## Finding security threats and limiting their impact
 
