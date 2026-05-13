@@ -3,6 +3,9 @@
 - **Date:** April 27-28, 2026
 - **Location:** Prague
 
+> [!NOTE]
+> [Photos from the conference](https://media.itixo.com/share/bqWhdr6aL6jvMpZ5mm8geB9OzGFBkK6lZy3fSRbaIjf0gnlwlFH7JmfkIxEq3BnTejQ?at=6f70aa47-6840-4720-9e00-f89c2a79ba02).
+
 ## Mitigating AI risks from injection, exfiltration and unsafe actions
 
 ### 📝 Abstract
